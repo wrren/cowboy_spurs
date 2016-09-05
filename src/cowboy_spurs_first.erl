@@ -11,4 +11,4 @@
 	{ suspend, module(), atom(), [any()] } 			|
 	{ stop, cowboy:req() }.
 execute( Req, Env ) ->
-	{ ok, Req, [ { spur_start, erlang:monotonic_time( micro_seconds ) } | Env ] }.
+	{ ok, Req, Env#{ spur_start => erlang:monotonic_time( micro_seconds ) } }.

@@ -11,12 +11,10 @@
 	{ ok, cowboy:req(), cowboy_middleware:env() } 	|
 	{ suspend, module(), atom(), [any()] } 			|
 	{ stop, cowboy:req() }.
+execute( Req, Env = #{ spur_start := Start} ) ->
+	MicroSeconds = erlang:monotonic_time( micro_seconds ) - Start,
+	gen_event:notify( cowboy_spurs_events, { request, Req, MicroSeconds } ),
+	{ ok, Req, Env };
+
 execute( Req, Env ) ->
-	case proplists:get_value( spur_start, Env ) of
-		undefined -> 
-			{ ok, Req, Env };
-		Start ->
-			MicroSeconds = erlang:monotonic_time( micro_seconds ) - Start,
-			gen_event:notify( cowboy_spurs_events, { request, Req, MicroSeconds } ),
-			{ ok, Req, Env }
-	end.
+	{ ok, Req, Env }.
