@@ -1,0 +1,16 @@
+{application, cowboy_spurs,
+ [{description, "Performance profiler for Cowboy applications"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, { cowboy_spurs_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {maintainers, []},
+  {licenses, []},
+  {links, []}
+ ]}.
